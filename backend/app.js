@@ -37,7 +37,6 @@ app.post('/api/player/', (req, res) => {
 });
 
 app.put('/api/player/:id', (req, res) => {
-    
     const player = players.find(p => p.id === parseInt(req.params.id));
     const name = req.body.name;
     const age = req.body.age;
@@ -51,5 +50,6 @@ app.delete('/api/player/:id', (req, res) => {
     players.pop(player);
     res.send("Deleted player");
 });
+
 const port = 3000;
 app.listen(port, () => console.log("Server listening..."));

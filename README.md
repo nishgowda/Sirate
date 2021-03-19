@@ -9,8 +9,3 @@ Enhancing trust between communities and police
 
 ### Potential Web App Architecture:
 ![Web app](misc/web_app_arch.png "Title")
-
-
-### Todos:
-- []
- 

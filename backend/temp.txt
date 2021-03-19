@@ -1,0 +1,4 @@
+GET - retrieves data  
+POST - user sends data to api
+PUT - user change some data 
+DELETE - user to delete some data

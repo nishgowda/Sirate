@@ -11,6 +11,7 @@
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -22,27 +23,56 @@
                 <img src="../css/sirate.png" alt="sirate">
             </a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="login.html">Login</a></li>
-                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="/login">Login</a></li>
+                <li><a href="/signup">Sign Up</a></li>
             </ul>
         </div>
         <div class="nav-content">
             <ul class="tabs tabs-transparent">
                 <li class="tab"><a class="active" href="home.html">Home</a></li>
-                <li class="tab"><a href="users.html">Reviews</a></li>
+                <li class="tab"><a href="/users">Reviews</a></li>
             </ul>
         </div>
     </nav>
-    <form class="box" method="post">
+    <form id="login" class="box" method="POST" action="/">
         <h1>Login</h1>
         <label>
-            <input type="text" name="" placeholder="Username">
+            <input type="text" id="email" name="" placeholder="Username">
         </label>
         <label>
-            <input type="password" name="" placeholder="Password">
+            <input type="password" id="password"  name="" placeholder="Password">
         </label>
         <input type="submit" name="" value="Login">
     </form>
 </div>
 </body>
 </html>
+<script>
+ $(document).ready(function() {
+     $(function() {
+
+         $('#login').on('submit', (e) => {
+             e.preventDefault();
+            let email = $("#email").val();
+            let pword = $("#password").val();
+            let formData = {
+                'email': email,
+                'password': pword
+            }
+        $.ajax({
+            url: '/auth/login',
+            type: 'POST',
+            data: JSON.stringify(formData),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+     })
+    });
+ }); 
+</script>

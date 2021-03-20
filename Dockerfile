@@ -1,10 +1,10 @@
-# Boilerplate dockerfile to start a node server
+# Dockerfile to start the node server
 
 FROM node:14.9.0
 
 WORKDIR /app
 
-COPY package.json /app
+COPY ./backend/package.json /app
 
 RUN npm install
 

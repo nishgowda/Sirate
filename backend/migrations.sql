@@ -117,7 +117,8 @@ ALTER TABLE ONLY public.users ALTER COLUMN uid SET DEFAULT nextval('public.users
 --
 
 COPY public.reviews (rid, rating, rev, likes, dislikes, officer_name, officer_badge_num, location, uid) FROM stdin;
-1	4	bad bad	2	0	albert	1234	phili, pa	1
+1	4	p good	3	0	john	2345	phili, pa	1
+2	3	nice	1	0	joe	7890	phili, pa	1
 \.
 
 
@@ -127,6 +128,7 @@ COPY public.reviews (rid, rating, rev, likes, dislikes, officer_name, officer_ba
 
 COPY public.users (uid, name, email, password, type) FROM stdin;
 1	nish	blob@email.com	poo	civilian
+3	joe	joe@email.com	$2b$10$chSy/3o2Rz/LalvG/jVN8uW1nBs5.0KcfXhpffy6o6SwwfebkZJY6	civilian
 \.
 
 
@@ -134,14 +136,14 @@ COPY public.users (uid, name, email, password, type) FROM stdin;
 -- Name: reviews_rid_seq; Type: SEQUENCE SET; Schema: public; Owner: nishgowda
 --
 
-SELECT pg_catalog.setval('public.reviews_rid_seq', 1, true);
+SELECT pg_catalog.setval('public.reviews_rid_seq', 3, true);
 
 
 --
 -- Name: users_uid_seq; Type: SEQUENCE SET; Schema: public; Owner: nishgowda
 --
 
-SELECT pg_catalog.setval('public.users_uid_seq', 1, true);
+SELECT pg_catalog.setval('public.users_uid_seq', 3, true);
 
 
 --

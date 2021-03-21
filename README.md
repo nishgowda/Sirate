@@ -1,5 +1,5 @@
 # Sirate
-Enhancing trust between communities and police
+A platform allowing users to review and rate police stops to enhance trust between communities and police.
 
 ## Setup
  - Install Node.js
@@ -11,7 +11,7 @@ Enhancing trust between communities and police
 - cd into backend directory
 - run ``` nodemon app.js ```
 - visit http://localhost:3000/ on your machine
-- docker *will* be setup eventually so you can just run that contianer
+- docker *will* be setup eventually so you can just run that container
 
 ### Using the database:
 1. Using locally

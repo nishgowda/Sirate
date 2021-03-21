@@ -3,7 +3,8 @@ const app = express();
 app.use(express.json());
 require('dotenv').config();
 require('./auth/routes')(app);
-
+require('./api/reviews')(app);
+require('./api/users')(app);
 // ---  Serves all the static files ---- // 
 app.use(express.static('../frontend'));
 app.use(express.static('html'));

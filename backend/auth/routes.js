@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
 app.use(express.json());
-app.use(cors());
 const bcrypt = require('bcrypt');
 const client = require('../db');
 const redis = require('redis');

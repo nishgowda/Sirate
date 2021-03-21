@@ -6,7 +6,6 @@ const isAuthenticated = (req, res, next) => {
     if (req.session.userId !== undefined) {
         next();
     } else {
-        console.log(req.session.userId);
         res.status(404).send("Unauthorized");
     }
 }

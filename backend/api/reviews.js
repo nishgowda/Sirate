@@ -1,4 +1,4 @@
-const express = required('express');
+const express = require('express');
 const app = express();
 app.use(express.json());
 const client = require('../db');
@@ -137,7 +137,7 @@ module.exports = app => {
     });
 
     //post a review
-    app.put('/api/reviews/post', isAuthenticated, (req, res) => {
+    app.post('/api/reviews/', isAuthenticated, (req, res) => {
         const { rating, text, likes, dislikes, off_name, off_num, location } = req.body;
         client.query("INSERT INTO reviews (rating, text, likes, dislikes, off_name, off_num, location) VALUES ($1, $2, $3, $4, $5, $6, $7)", 
         [rating, text, likes, dislikes, off_name, off_num, location], (err, result) => {
@@ -153,7 +153,7 @@ module.exports = app => {
         const { rid } = req.params;
         const { likes } = req.body;
         client.query("UPDATE reviews SET likes = $1 WHERE rid = $2", 
-        [likes, rid], (err, resultult) => {
+        [likes, rid], (err, result) => {
             if(err){
                 return res.status(500).send('Liking Error');
             }
@@ -166,7 +166,7 @@ module.exports = app => {
         const { rid } = req.params;
         const { dislikes } = req.body;
         client.query("UPDATE reviews SET dislikes = $1 WHERE rid = $2", 
-        [dislikes, rid], (err, resultult) => {
+        [dislikes, rid], (err, result) => {
             if(err){
                 return res.status(500).send('Disliking Error');
             }

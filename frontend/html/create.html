@@ -98,8 +98,10 @@ $(document).ready(function(){
             if (result[0]) {
                  nav.append('<li>' + `<a href="/me/">${result[0].name}</a>` + '</li>'
              + "<li> <a href='/auth/logout'>Sign Out</a>");
+             uid = result[0].uid;
             } else {
               console.log("ERROR");
+  
             let nav = $("#nav-mobile");
             nav.append(' <li><a href="/login">Login</a></li>'+
                 '<li><a href="/register">Sign Up</a></li>')

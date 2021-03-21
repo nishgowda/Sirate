@@ -47,7 +47,7 @@ module.exports = app => {
             else {
                 console.log(req.body);
                 bcrypt.hash(req.body.password, 10).then(hashedPassword => {
-                    client.query('insert into users(name, email, password, type) values($1, $2, $3, $4)', [req.body.name, req.body.email, hashedPassword, req.body.type], (e, re) => {
+                    client.query('insert into users(name, email, password, type) values($1, $2, $3, $4) returning *', [req.body.name, req.body.email, hashedPassword, req.body.type], (e, re) => {
                         if (e) throw e;
                         req.session.userId = re.rows[0].uid;
                         res.status(200).send("Authorized");

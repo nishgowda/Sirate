@@ -9,7 +9,7 @@ module.exports = app => {
     
     //catch em all (homepage reviews)
     app.get('/api/reviews/', (req, res) => {
-        client.query('SELECT * FROM reviews', (err, result) => {
+        client.query('SELECT * FROM reviews order by rid desc', (err, result) => {
             if(err){
                 return res.status(500).send('All error');
             }

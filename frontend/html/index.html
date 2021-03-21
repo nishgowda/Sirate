@@ -73,7 +73,8 @@
         </div>
     </nav>
     <header>
-<input type="text" id="search" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">    </header>
+<input type="text" id="search" onkeyup="myFunction()" placeholder="Search for Officers.." title="Type in a name">    
+</header>
      <body>
            <center>
         <a class="btn-floating btn-large waves-effect waves-light black" href="/create"><i class="material-icons">add</i></a>
@@ -169,7 +170,7 @@ function truncateText(text, length) {
          let table = $("#reviews");
             for (let i = 0; i < result.length; i ++){
                 table.append('<tr><td>' + result[i].rid + '</td><td>' + 
-                `<a href="/officer/${result[i].off_num}">${result[i].off_name}</a>` +'</td><td>'+   `${result[i].off_num}`+ '</td><td>' + `${result[i].rating}`+ '</td><td>' + `${truncateText(result[i].rev)}`+ '</td><td>' + result[i].location + '</td><td>' + result[i].likes + '</td><td>' + result[i].dislikes + '</td><td>'+ `<a href="/review/${result[i].rid}">View</a>` + '</tr>');
+                `<a href="/officer/${result[i].off_num}">${result[i].off_name}</a>` +'</td><td>'+   `${result[i].off_num}`+ '</td><td>' + `${result[i].rating}`+ '</td><td>' + `${truncateText(result[i].rev, 15)}`+ '</td><td>' + result[i].location + '</td><td>' + result[i].likes + '</td><td>' + result[i].dislikes + '</td><td>'+ `<a href="/review/${result[i].rid}">View</a>` + '</tr>');
             }
             console.log(result);
         },

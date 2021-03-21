@@ -79,10 +79,9 @@
 <script>
  $(document).ready(function() {
      function truncateText(text, length) {
-  if (text.length <= length) {
-    return text;
-  }
-
+        if (text.length <= length) {
+            return text;
+        }
   return text.substr(0, length) + '\u2026'
 }
   $.ajax({

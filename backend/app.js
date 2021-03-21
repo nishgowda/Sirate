@@ -35,5 +35,9 @@ app.get('/create', (_, res) => {
     res.sendFile('create.html', { root: '../frontend/html/' });
 });
 
+app.get('/officer/:off_name', (_, res) => {
+    res.sendFile('officers.html', { root: '../frontend/html/' });
+});
+
 const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Server listening on port ${port}...`));

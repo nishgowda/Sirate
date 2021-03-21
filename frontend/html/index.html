@@ -169,7 +169,7 @@ function truncateText(text, length) {
          let table = $("#reviews");
             for (let i = 0; i < result.length; i ++){
                 table.append('<tr><td>' + result[i].rid + '</td><td>' + 
-                `<a href="/showofficer/${result[i].rid}">${result[i].off_name}</a>` +'</td><td>'+   `${result[i].off_num}`+ '</td><td>' + `${result[i].rating}`+ '</td><td>' + `${truncateText(result[i].rev)}`+ '</td><td>' + result[i].location + '</td><td>' + result[i].likes + '</td><td>' + result[i].dislikes + '</td><td>'+ `<a href="/review/${result[i].rid}">View</a>` + '</tr>');
+                `<a href="/officer/${result[i].off_num}">${result[i].off_name}</a>` +'</td><td>'+   `${result[i].off_num}`+ '</td><td>' + `${result[i].rating}`+ '</td><td>' + `${truncateText(result[i].rev)}`+ '</td><td>' + result[i].location + '</td><td>' + result[i].likes + '</td><td>' + result[i].dislikes + '</td><td>'+ `<a href="/review/${result[i].rid}">View</a>` + '</tr>');
             }
             console.log(result);
         },

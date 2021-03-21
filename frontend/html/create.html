@@ -93,13 +93,20 @@ $(document).ready(function(){
   $.ajax({
         url : "/api/me/user",
         type: "GET",
-        success: function(result) {
+        success: function(result){
             let nav = $("#nav-mobile");
-            nav.append('<li>' + `<a href="/me/">${result[0].name}</a>` + '</li>');
-            console.log(result);
-            uid = result[0].uid;
+            if (result[0]) {
+                 nav.append('<li>' + `<a href="/me/">${result[0].name}</a>` + '</li>'
+             + "<li> <a href='/auth/logout'>Sign Out</a>");
+            } else {
+              console.log("ERROR");
+            let nav = $("#nav-mobile");
+            nav.append(' <li><a href="/login">Login</a></li>'+
+                '<li><a href="/register">Sign Up</a></li>')
+            }
         },
         error: function(e) {
+            console.log('error', e);
             let nav = $("#nav-mobile");
             nav.append(' <li><a href="/login">Login</a></li>'+
                 '<li><a href="/register">Sign Up</a></li>')

@@ -96,22 +96,28 @@
 $(document).ready(function() {
      $('#rating').formSelect();
      let current_uid = 0;
-    $.ajax({
+  $.ajax({
         url : "/api/me/user",
         type: "GET",
-        success: function(result) {
+        success: function(result){
             let nav = $("#nav-mobile");
-            nav.append('<li>' + `<a href="/me/">${result[0].name}</a>` + '</li>');
-            current_uid = result[0].uid;
-            console.log(result);
+            if (result[0]) {
+                 nav.append('<li>' + `<a href="/me/">${result[0].name}</a>` + '</li>'
+             + "<li> <a href='/auth/logout'>Sign Out</a>");
+            } else {
+              console.log("ERROR");
+            let nav = $("#nav-mobile");
+            nav.append(' <li><a href="/login">Login</a></li>'+
+                '<li><a href="/register">Sign Up</a></li>')
+            }
         },
         error: function(e) {
+            console.log('error', e);
             let nav = $("#nav-mobile");
             nav.append(' <li><a href="/login">Login</a></li>'+
                 '<li><a href="/register">Sign Up</a></li>')
         }
     });
-
     let url = window.location.href
     let sub = url.replace('http://localhost:4000/review/', '')
     let rid = parseInt(sub);

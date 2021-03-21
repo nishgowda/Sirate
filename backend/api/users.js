@@ -9,7 +9,7 @@ module.exports = app => {
     app.get('/api/users', isAuthenticated, (req, res) => {
         client.query('select * from users', (err, result) => {
             if (err) return res.status(400).send(err)
-            return res.status(200).send(users);
+            return res.status(200).send(result);
         });
     });
 

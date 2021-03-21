@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sirate</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+<div class="app">
+    <nav class="nav-extended">
+        <div class="nav-wrapper">
+            <a href="/" class="logo">
+                <img src="../css/sirate.png" alt="sirate">
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            </ul>
+        </div>
+        <div class="nav-content">
+            <ul class="tabs tabs-transparent">
+                <li class="tab"><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+    <header>
+        <input class="search" style="font-family: FontAwesome,sans-serif;" placeholder='&#xf002; Search for Officers...' />
+    </header>
+     <body>
+      <div class="container">
+        <table class="striped" id="reviews">
+        <thead>
+          <tr>
+                <th>Id</th>
+              <th>Officer Name</th>
+              <th>Badge Number</th>
+              <th>Rating</th>
+              <th>Review</th>
+                <th>Location</th>
+                <th>Likes</th>
+                <th>Dislkes</th>
+                <th>Learn More</th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+        </tbody>
+      </table>
+                </body>
+ 
+
+    </div>
+
+</div>
+</body>
+<script>
+
+$(document).ready(function(){
+function truncateText(text, length) {
+  if (text.length <= length) {
+    return text;
+  }
+
+  return text.substr(0, length) + '\u2026'
+}
+  $.ajax({
+        url : "/api/me/user",
+        type: "GET",
+        success: function(result){
+            let nav = $("#nav-mobile");
+            nav.append('<li>' + `<a href="/me/">${result[0].name}</a>` + '</li>');
+            console.log(result);
+        },
+        error: function(e) {
+            let nav = $("#nav-mobile");
+            nav.append(' <li><a href="/login">Login</a></li>'+
+                '<li><a href="/register">Sign Up</a></li>')
+        }
+    });
+  $.ajax({
+        url : "/api/me/reviews",
+        type: "GET",
+        success: function(result){
+        let table = $("#reviews");
+            for (let i = 0; i < result.length; i ++){
+                table.append('<tr><td>' + result[i].rid + '</td><td>' + 
+                `<a href="/showofficer/${result[i].rid}">${result[i].officer_name}</a>` +'</td><td>'+   `${result[i].officer_badge_num}`+ '</td><td>' + `${result[i].rating}`+ '</td><td>' + `${truncateText(result[i].rev)}`+ '</td><td>' + result[i].location + '</td><td>' + result[i].likes + '</td><td>' + result[i].dislikes + '</td><td>'+ `<a href="/review/${result[i].rid}">View</a>` + '</tr>');
+            }
+            console.log(result);
+        },
+        error: function(e) {
+            console.log(e);
+        }
+    });
+});
+
+</script>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sirate</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+<body>
+<div class="app">
+    <nav class="nav-extended">
+        <div class="nav-wrapper">
+            <a href="/" class="logo">
+                <img src="../css/sirate.png" alt="sirate">
+            </a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+            </ul>
+        </div>
+        <div class="nav-content">
+            <ul class="tabs tabs-transparent">
+                <li class="tab"><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+     <body>
+           <center>
+           <h3> Write a review </h3>
+        </center>
+      <div class="container">
+
+ <div class="row">
+    <form id="create_form" class="col s12" method="POST" action="/">
+      <div class="row">
+        <div class="input-field col s6">
+          <input  id="officer_name" type="text" class="validate">
+          <label for="officer_name">Officer Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="officer_badge_num" type="text" class="validate">
+          <label for="officer_badge_num">Offcier Badge Number</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+        <textarea id="review" class="materialize-textarea"></textarea>
+          <label for="review">Review</label>
+        </div>
+      </div>
+   <div class="row">
+  <div class="input-field col s12">
+    <select name="rating" id="rating">
+      <option value="5" selected>5</option>
+      <option value="4">4</option>
+      <option value="3">3</option>
+      <option value="2">2</option>
+      <option value="1">1</option>
+    </select>
+    <label for="rating">Rating</label>
+  </div>
+</div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="location" type="text" class="validate">
+          <label for="location">Location</label>
+        </div>
+        <button type="submit" id="submit" class="btn btn-primary">Save</button>
+    </form>
+  </div>
+    </div>
+
+
+
+</div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+<script>
+            
+$(document).ready(function(){
+        $('#rating').formSelect();
+        let uid = 0;
+  $.ajax({
+        url : "/api/me/user",
+        type: "GET",
+        success: function(result) {
+            let nav = $("#nav-mobile");
+            nav.append('<li>' + `<a href="/me/">${result[0].name}</a>` + '</li>');
+            console.log(result);
+            uid = result[0].uid;
+        },
+        error: function(e) {
+            let nav = $("#nav-mobile");
+            nav.append(' <li><a href="/login">Login</a></li>'+
+                '<li><a href="/register">Sign Up</a></li>')
+        }
+    });
+
+    $(function() {
+        $('#create_form').on('submit', (e) => {
+         e.preventDefault();
+        let officer_name = $('#officer_name').val();
+        let officer_badge_num = $('#officer_badge_num').val();
+        let review = $('#review').val();
+        let rating = $('#rating').val();
+        let location = $('#location').val();
+        let formData = {
+            'rev': review,
+            'rating': rating,
+            'off_name': officer_name,
+            'off_num': officer_badge_num,
+            'location': location,
+            'likes': 0,
+            'dislikes': 0,
+            'uid': uid,
+
+        };
+  $.ajax({
+        url : "/api/reviews",
+        type: "POST",
+        data: JSON.stringify(formData),
+        contentType: 'application/json',
+        success: function(result){
+            window.location.href = "/";
+            console.log(result);
+        },
+        error: function(e) {
+            alert(e);
+            console.log(e);
+        }
+    });
+})
+    })
+});
+
+</script>
+</html>

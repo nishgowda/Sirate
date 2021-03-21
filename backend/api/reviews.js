@@ -3,6 +3,7 @@ const app = express();
 app.use(express.json());
 const client = require('../db');
 const isAuthenticated = require('../auth/verify');
+const users = require('./users');
 
 module.exports = app => {
     
@@ -17,7 +18,7 @@ module.exports = app => {
     });
     
     //get user reviews
-    app.get('/api/reviews/me', isAuthenticated, (req, res) => {
+    app.get('/api/me/reviews/', isAuthenticated, (req, res) => {
         client.query('SELECT * FROM reviews WHERE uid = $1', 
         [req.session.userId], (err, result) => {
             if(err){
@@ -138,9 +139,9 @@ module.exports = app => {
 
     //post a review
     app.post('/api/reviews/', isAuthenticated, (req, res) => {
-        const { rating, text, likes, dislikes, off_name, off_num, location } = req.body;
-        client.query("INSERT INTO reviews (rating, text, likes, dislikes, off_name, off_num, location) VALUES ($1, $2, $3, $4, $5, $6, $7)", 
-        [rating, text, likes, dislikes, off_name, off_num, location], (err, result) => {
+        const { rating, rev, likes, dislikes, off_name, off_num, location } = req.body;
+        client.query("INSERT INTO reviews (rating, rev, likes, dislikes, off_name, off_num, location) VALUES ($1, $2, $3, $4, $5, $6, $7)", 
+        [rating, rev, likes, dislikes, off_name, off_num, location], (err, result) => {
             if(err){
                 return res.status(500).send('Review Error');
             }
@@ -172,5 +173,30 @@ module.exports = app => {
             }
             return res.status(200).send(result.rows);
         });
-    }); 
+    });
+    
+    //get username for posted review
+    app.get('/api/reviews/username/:uid', (req, res) => {
+        const { uid } = req.params;
+        client.query("SELECT name FROM users INNER JOIN reviews ON users.uid = $1", 
+        [uid], (err, result) => {
+            if(err){
+                return res.status(500).send('Username Error');
+            }
+            return res.status(200).send(result.rows);
+        });
+    });
+
+   //update a review
+   app.put('/api/reviews/:rid', isAuthenticated, (req, res) => {
+    const { rid } = req.params;
+    const { rating, rev, off_name, off_num, location } = req.body;
+    client.query("UPDATE reviews SET rating = $1, rev = $2, off_name = $3, off_num = $4, location = $5 WHERE rid = $6", 
+    [rating, rev, off_name, off_num, location, rid], (err, result) => {
+        if(err){
+            return res.status(500).send('Update Error');
+        }
+        return res.status(200).send(result.rows);
+    });
+});
 }

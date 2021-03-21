@@ -6,11 +6,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
 
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
@@ -23,21 +22,21 @@
                 <img src="../css/sirate.png" alt="sirate">
             </a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="/login">Login</a></li>
-                <li><a href="/signup">Sign Up</a></li>
+                <li><a href="/login" class="active">Login</a></li>
+                <li><a href="/register">Sign Up</a></li>
             </ul>
         </div>
         <div class="nav-content">
             <ul class="tabs tabs-transparent">
-                <li class="tab"><a class="active" href="home.html">Home</a></li>
-                <li class="tab"><a href="/users">Reviews</a></li>
+                <li class="tab"><a href="/home">Home</a></li>
+                <li class="tab"><a href="/reviews">Reviews</a></li>
             </ul>
         </div>
     </nav>
     <form id="login" class="box" method="POST" action="/">
         <h1>Login</h1>
         <label>
-            <input type="text" id="email" name="" placeholder="Username">
+            <input type="text" id="email" name="" placeholder="Email">
         </label>
         <label>
             <input type="password" id="password"  name="" placeholder="Password">
@@ -48,7 +47,14 @@
 </body>
 </html>
 <script>
+    var el = document.querySelector('.tabs');
+    var instance = M.Tabs.init(el, {});
+
+</script>
+<script>
+
  $(document).ready(function() {
+
      $(function() {
 
          $('#login').on('submit', (e) => {
@@ -64,12 +70,13 @@
             type: 'POST',
             data: JSON.stringify(formData),
             contentType: 'application/json',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
+            success: function(result){
+                console.log(result);
+                window.location.replace("/"); 
             },
-            error: function (error) {
+            error: function(error){
                 console.log(error);
+                alert(error.responseText);
             }
         });
      })

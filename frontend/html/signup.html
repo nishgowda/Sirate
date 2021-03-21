@@ -20,17 +20,17 @@
     <nav class="nav-extended">
         <div class="nav-wrapper">
             <a href="/" class="logo">
-                <img src="sirate.png" alt="sirate">
+                <img src="../css/sirate.png" alt="sirate">
             </a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="/login">Login</a></li>
-                <li><a href="/signup">Sign Up</a></li>
+                <li><a href="/signup" class="active">Sign Up</a></li>
             </ul>
         </div>
         <div class="nav-content">
             <ul class="tabs tabs-transparent">
-                <li class="tab"><a class="active" href="/">Home</a></li>
-                <li class="tab"><a href="/users">Reviews</a></li>
+                <li class="tab"><a href="/">Home</a></li>
+                <li class="tab"><a href="/reviews">Reviews</a></li>
             </ul>
         </div>
     </nav>
@@ -48,7 +48,7 @@
         <label>
             <input type="password" id="password"  name="" placeholder="Password">
         </label>
-        <input type="submit" name="" value="Sign Up">
+        <input type="submit" name="" value="Sign Up" onclick="submit()">
     </form>
 </div>
 </body>
@@ -80,7 +80,7 @@
             },
             error: function (error) {
                 console.log(error);
-                alert(errro);
+                alert(error);
             }
         });
      })

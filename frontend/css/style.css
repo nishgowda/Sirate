@@ -1,5 +1,5 @@
 body{
-    background: #202020;
+    background: #fff;
 }
 .app-wrap{
     display: flex;
@@ -55,4 +55,33 @@ body{
 }
 .box input[type = "submit"]:hover{
     background: #2ecc71;
+}
+.search{
+    color: white;
+}
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 15px 15px;
+}
+header input{
+    width: 100%;
+    max-width: 500px;
+    padding: 10px 15px;
+}
+.card{
+    display: inline-block;
+    max-width: 250px;
+    min-height: 200px;
+    padding: 15px 20px 10px;
+}
+.btn{
+    background-color: black;
+}
+.off{
+    justify-content: center;
+    align-items: center;
+    padding-left: 100px;
+    padding-top: 50px;
 }

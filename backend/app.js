@@ -20,9 +20,20 @@ app.get('/login', (_, res) => {
 app.get('/register', (_, res) => {
     res.sendFile('signup.html', { root: '../frontend/html/' });
 });
-app.get('/users', (_, res) => {
-    res.sendFile('users.html', { root: '../frontend/html/' });
+
+app.get('/reviews', (_, res) => {
+    res.sendFile('reviews.html', { root: '../frontend/html/' });
+});
+app.get('/review/:rid', (_, res) => {
+    res.sendFile('show-review.html', { root: '../frontend/html/' });
+});
+app.get('/me', (_, res) => {
+    res.sendFile('me.html', { root: '../frontend/html/' });
 });
 
-const port = process.env.PORT || 3000;
+app.get('/create', (_, res) => {
+    res.sendFile('create.html', { root: '../frontend/html/' });
+});
+
+const port = process.env.PORT || 4000;
 app.listen(port, () => console.log(`Server listening on port ${port}...`));

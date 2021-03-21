@@ -76,6 +76,6 @@ module.exports = app => {
     app.get('/auth/logout', (req, res) => {
         req.session = undefined;
         res.clearCookie('cooks', { httpOnly: true, sameSite: 'lax', domain: 'localhost' })
-        return res.status(200).send("Logged Out");
+        res.redirect('/');
     });
 }

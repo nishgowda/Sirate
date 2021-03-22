@@ -14,6 +14,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/index.js"></script>
+
 </head>
 <body>
 <div class="app">
@@ -76,82 +78,3 @@
 </div>
 </body>
 </html>
-<script>
- $(document).ready(function() {
-     function truncateText(text, length) {
-        if (text.length <= length) {
-            return text;
-        }
-  return text.substr(0, length) + '\u2026'
-}
-  $.ajax({
-        url : "/api/me/user",
-        type: "GET",
-        success: function(result){
-            let nav = $("#nav-mobile");
-            if (result[0]) {
-                 nav.append('<li>' + `<a href="/me/">${result[0].name}</a>` + '</li>'
-             + "<li> <a href='/auth/logout'>Sign Out</a>");
-            } else {
-              console.log("ERROR");
-            let nav = $("#nav-mobile");
-            nav.append(' <li><a href="/login">Login</a></li>'+
-                '<li><a href="/register">Sign Up</a></li>')
-            }
-        },
-        error: function(e) {
-            console.log('error', e);
-            let nav = $("#nav-mobile");
-            nav.append(' <li><a href="/login">Login</a></li>'+
-                '<li><a href="/register">Sign Up</a></li>')
-        }
-    });
-  $.ajax({
-        url : "/api/reviews",
-        type: "GET",
-        success: function(result){
-         let table = $("#reviews");
-            for (let i = 0; i < result.length; i ++){
-                table.append('<tr><td>' + result[i].rid + '</td><td>' + 
-                `<a href="/showofficer/${result[i].rid}">${result[i].off_name}</a>` +'</td><td>'+   `${result[i].off_num}`+ '</td><td>' + `${result[i].rating}`+ '</td><td>' + `${truncateText(result[i].rev)}`+ '</td><td>' + result[i].location + '</td><td>' + result[i].likes + '</td><td>' + result[i].dislikes + '</td><td>'+ `<a href="/review/${result[i].rid}">View</a>` + '</tr>');
-            }
-            console.log(result);
-        },
-        error: function(e) {
-            console.log(e);
-        }
-    });
-     $(function() {
-         $('#register').on('submit', (e) => {
-             e.preventDefault();
-            let name = $("#name").val();
-            let type = $("#type").val();
-            let email = $("#email").val();
-            let pword = $("#password").val();
-            let formData = {
-                'name': name,
-                'type': type,
-                'email': email,
-                'password': pword
-            }
-        $.ajax({
-            url: '/auth/register',
-            type: 'POST',
-            data: JSON.stringify(formData),
-            contentType: 'application/json',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-                alert(data);
-            },
-            error: function (error) {
-                console.log(error);
-                alert(error);
-            }
-        });
-     })
-    });
-     
-     
- });
-</script>
